@@ -73,9 +73,9 @@
                 width: auto;
                 max-height: 100%; 
         }
-        #logindiv{
+        #logindiv, #emaildiv{
             width: 95%;
-            height: 50%;
+            height: 55%;
             margin-top: -30vh;
             border-radius: 10px;
             background-color: rgba(0,0,0, 0.75);
@@ -85,8 +85,11 @@
             flex-direction: column;
             padding: 1%;
         }
-        #username,#password{
-            margin: 5px;
+        #emaildiv{
+            display: none;
+        }
+        #username,#password, #email{
+            margin: 1.5%;
             width: 90%;
             height: 10%;
             border-color: orangered;
@@ -98,7 +101,11 @@
             border-top: 0;
         }
         #username{
-            margin-top: -14vh;
+            margin-top: -17vh;
+        }
+        #email{
+            margin-top: -25vh;
+            margin-bottom: 1vh;
         }
         #href{
             color: transparent;
@@ -132,6 +139,64 @@
             background-color: black;
             color: white;
         }
+        #verifydiv{
+            width: 90%;
+            height: 10%;
+            background-color: white;
+            display: flex;
+            align-items: start;
+            justify-content: start;
+            flex-direction:row;
+        }
+        #checkbox{
+           margin-left: 0.5vh;
+           height: 4vh;
+           width: 9vw;
+           border-style: solid;
+           border-color: orangered;
+           border-width: 1px;
+           border-radius: 100px;
+           display: flex;
+           margin-top: 0.5vh;
+           background-color: transparent;
+           transition: 0.15s;
+           
+        }
+        #notrobot{
+            margin-left: 2vw;
+            margin-top: 1vh;
+            font-size: 5vw;
+        }
+        #sendbtn{
+            width: 90%;
+            height: 10%;
+            background-color: white;
+            border-style: solid;
+            color: black;
+            font-size: 5vw;
+            border-width: 1px;
+            margin-top: 2vh;
+            transition: 0.15s;
+        }
+        #sendbtn:hover:not(:disabled){
+            background-color: black;
+            color: white;
+        }
+        #sendbtn:disabled{
+            background-color: gray;
+        }
+        #back{
+            background-color: transparent;
+            color: orangered;
+            border-style: none;
+            font-size: 5vw;
+            margin-top: 1vh;
+            margin-left: -54vw;
+            transition: 0.15s;
+        }
+        #back:hover{
+            color: wheat;
+        }
     </style>
     <div id="header">
         <img id="rigalogo" src="https://raw.githubusercontent.com/RigaStilaUnTehnikums/info/main/rigas.jpg" alt="Logo">
@@ -143,13 +208,21 @@
             <input id="username" type="text" placeholder="Username">
             <input id="password" type="password" placeholder="Password">
             <button id="loginbtn">Login</button>
-            <a id="href" href="https://www.google.com/">
                 <button id="requestbtn">
                     Forgot Password or Username?
                 </button>
-            </a>
         </div>
-        
+        <div id="emaildiv">
+            <input type="email" id="email" placeholder="Email">
+            <div id="verifydiv">
+                <button id="checkbox"></button>
+                <label id="notrobot">I am not a Robot</label>
+            </div>
+            <button id="sendbtn" disabled>Request Email</button>
+            <button id="back">
+                Back to login
+            </button>
+        </div>
     </div>
     <div id="bottomcontainer">
         <a  id="href" href="https://rigastilauntehnikums.github.io/mobile/">
@@ -175,7 +248,34 @@
 
     
     <script>
-        
+let checkbox = document.getElementById("checkbox");
+let sendbtn = document.getElementById("sendbtn");
+let requestbtn = document.getElementById("requestbtn")
+let back = document.getElementById("back")
+
+checkbox.onclick = function () {
+    let bgColor = window.getComputedStyle(checkbox).backgroundColor; 
+
+    if (bgColor === "rgba(0, 0, 0, 0)" || bgColor === "transparent") { 
+        checkbox.style.backgroundColor = "blue";
+        checkbox.style.borderColor="blue";
+        sendbtn.disabled = false;
+    } 
+    else if (bgColor === "rgb(0, 0, 255)") {
+        checkbox.style.backgroundColor = "transparent";
+        checkbox.style.borderColor="orangered";
+        sendbtn.disabled = true;
+    }
+};
+
+requestbtn.onclick=function(){
+    document.getElementById("logindiv").style.display="none"
+    document.getElementById("emaildiv").style.display="flex"
+}
+back.onclick=function(){
+    document.getElementById("logindiv").style.display="flex"
+    document.getElementById("emaildiv").style.display="none"
+}
     </script>
 </body>
 </html>
